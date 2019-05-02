@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+<button id="btn1" >下载</button>
+
+<script>
+    $(function(){
+       
+
+        $("#btn1").click(function (e) {
+            console.log("点击按钮");
+            var xhr = new XMLHttpRequest();
+            console.log(xhr);
+            //xhr.open('get', '/home/index');
+            xhr.open('get', '/Content/download/1.zip');
+            //xhr.responseType = "blob";
+            //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+            xhr.onprogress = function (event) {
+                //console.log(event);
+                if (event.lengthComputable) {
+                    console.log("已下载：", event.loaded);
+                    console.log("总大小：", event.total);
+                }
+               
+            };
+            xhr.onload = function (event) {
+                console.log("下载完成");
+                //var binStr = this.response;
+                //console.log(binStr);
+                //var file = new File([xhr.response], "聚好贷.apk", { type: 'application/force-download' });
+                //window.open(file);
+                //window.open(URL.createObjectURL(file));
+                window.open(this.responseText);
+                
+                
+            };
+            xhr.send();
+        });
+
+
+    });
+   
+</script>
+
